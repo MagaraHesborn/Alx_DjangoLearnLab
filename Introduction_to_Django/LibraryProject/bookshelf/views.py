@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 
 def index(request):
-    return HttpResponse("Welcome to my bookshelf")
-# Create your views here.
+    return HttpResponseRedirect('/admin/login/')
+
