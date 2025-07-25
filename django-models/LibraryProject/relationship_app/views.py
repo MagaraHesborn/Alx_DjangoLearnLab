@@ -27,10 +27,10 @@ class SignUpView(CreateView):
         login(self.request, self.object)
         return response
 
-class LogInView(LoginView):
+class CustomLogInView(LoginView):
     template_name = 'relationship_app/login.html'
 
-class LogOutView(LogoutView):
+class CustomLogOutView(LogoutView):
     next_page = 'login'
 
 
