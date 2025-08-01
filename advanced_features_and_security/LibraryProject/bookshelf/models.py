@@ -7,10 +7,10 @@ class CustomUser(AbstractUser):
 
     class Meta:
         permissions = [
-            ("can_view", "Can view data"),
-            ("can_create", "Can create data"),
-            ("can_edit", "Can edit data"),
-            ("can_delete", "Can delete data"),
+            ("can_view", "Can view custom user"),
+            ("can_create", "Can create custom user"),
+            ("can_edit", "Can edit custom user"),
+            ("can_delete", "Can delete custom user"),
         ]
 
 
