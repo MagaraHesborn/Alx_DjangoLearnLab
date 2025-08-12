@@ -12,7 +12,7 @@ class ListView(generics.ListAPIView):
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
     filter_backends = [rest_framework.DjangoFilterBackend,
-                       rest_framework.OrderingFilter]
+                       rest_framework.filters.OrderingFilter]
     filterset_fields = ['title','author' 'publication_year']
     ordering_fields = ['title', 'author']
 
