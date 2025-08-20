@@ -8,19 +8,20 @@ from django.contrib.auth.views import LoginView, LogoutView
 
 class Register(CreateView):
     form_class = UserCreationForm()
-    success_url = reverse_lazy
     template_name = 'blog/register.html'
+    success_url = reverse_lazy("login") 
+   
 
-    def form_invalid(self, form):
+    def form_valid(self, form):
         response = super().form_valid(form)
 
-        login(self.request, self.object)
+        login(self.request, self.object) 
         return response
     
-class LoginView(LoginView):
+class BlogLoginView(LoginView):
     template_name = 'blog/login.html'
 
-class LogoutView(LogoutView):
+class BlogLogoutView(LogoutView):
     next_page = 'login'
 
 # Create your views here.
