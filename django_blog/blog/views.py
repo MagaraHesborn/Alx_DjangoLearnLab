@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from rest_framework import viewsets
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
@@ -7,6 +8,8 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import UserUpdateForm, ProfileUpdateForm
+from .models import Post
+from .serializers import PostSerializer
 
  
 def home(request):
@@ -53,5 +56,9 @@ def profile(request):
         "p_form": p_form
     }
     return render(request, "blog/profile.html", context)
+
+class PostViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
 
 # Create your views here.
