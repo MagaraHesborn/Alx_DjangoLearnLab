@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'blog.apps.BlogConfig',
     'crispy_forms',
+    'crispy_bootstrap5'
 ]
 
 MIDDLEWARE = [

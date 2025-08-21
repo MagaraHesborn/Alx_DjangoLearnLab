@@ -12,6 +12,9 @@ from .forms import UserUpdateForm, ProfileUpdateForm
 def home(request):
     return render(request, 'blog/home.html')
 
+def posts(request):
+    return render(request, 'blog/posts.html')
+
 class Register(CreateView):
     form_class = UserCreationForm
     template_name = 'blog/register.html'
