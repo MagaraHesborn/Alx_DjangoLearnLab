@@ -1,6 +1,31 @@
 {% extends "blog/base.html" %}
+{% load static %}
 
-{% block content %}
-<h1>Welcome to Django Blog</h1>
-<p>This is the home page.</p>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <nav>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'post-list' %}">Blog Posts</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'profile' %}">Profile</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'register' %}">Register</a>
+        {% endif %}
+    </nav>
+
+    <h1>Welcome to Django Blog</h1>
+    <p>This is the home page.</p>
+
+    <footer>
+        <p>&copy; 2024 Django Blog</p>
+    </footer>
+</body>
+</html>

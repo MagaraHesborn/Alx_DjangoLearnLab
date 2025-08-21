@@ -76,7 +76,7 @@ class PostDetailView(DetailView):
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     template_name = "blog/post_form.html"
-    fields = ['title, content, published_date, author']  
+    fields = ['title', 'content']  
     success_url = reverse_lazy('post-list')
 
     def form_valid(self, form):
@@ -87,7 +87,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     template_name = "blog/post_form.html"
-    fields = ['title, content, published_date, author']
+    fields = ['title', 'content']
     success_url = reverse_lazy('post-list')
 
     def test_func(self):
