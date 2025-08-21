@@ -12,7 +12,7 @@ class Post(models.Model):
         return self.title
     
 class Profile(models.Model):
-    ser = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True, null=True)
     profile_picture = models.ImageField(upload_to="profile_pics/", blank=True, null=True)
 
