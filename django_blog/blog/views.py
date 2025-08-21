@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from rest_framework import viewsets
+from rest_framework import generics
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
@@ -8,8 +8,8 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import UserUpdateForm, ProfileUpdateForm
-from .models import Post
 from .serializers import PostSerializer
+from .models import Post
 
  
 def home(request):
@@ -57,8 +57,29 @@ def profile(request):
     }
     return render(request, "blog/profile.html", context)
 
-class PostViewSet(viewsets.ModelViewSet):
+# Crude Operations
+
+
+class ListView(generics.ListAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+
+class DetailView(generics.RetrieveAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+class CreateView(generics.CreateAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+class UpdateView(generics.UpdateAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+class DeleteView(generics.DestroyAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+
 
 # Create your views here.
