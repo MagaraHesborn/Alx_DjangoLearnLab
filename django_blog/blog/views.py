@@ -7,7 +7,10 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import UserUpdateForm, ProfileUpdateForm
+
  
+def home(request):
+    return render(request, 'blog/home.html')
 
 class Register(CreateView):
     form_class = UserCreationForm
