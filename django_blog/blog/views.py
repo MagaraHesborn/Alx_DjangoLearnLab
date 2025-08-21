@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from rest_framework import generics
+from django.views.generic import ListView, DetailView, DeleteView, UpdateView
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
@@ -8,7 +8,6 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import UserUpdateForm, ProfileUpdateForm
-from .serializers import PostSerializer
 from .models import Post
 
  
@@ -60,26 +59,37 @@ def profile(request):
 # Crude Operations
 
 
-class ListView(generics.ListAPIView):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
+class PostListView(ListView):
+    model = Post
+    template_name = "blog/post_list.html"
+    context_object_name = "post"
+    
 
-class DetailView(generics.RetrieveAPIView):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
 
-class CreateView(generics.CreateAPIView):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
+class PostDetailView(DetailView):
+    model = Post
+    template_name = "blog/post_detail.html"
+    context_object_name = "post"
 
-class UpdateView(generics.UpdateAPIView):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
 
-class DeleteView(generics.DestroyAPIView):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
+class PostCreateView(CreateView):
+    model = Post
+    template_name = "blog/post_form.html"
+    fields = ['title, content, published_date, author']  
+    success_url = reverse_lazy('post-list')
 
+
+class PostUpdateView(UpdateView):
+    model = Post
+    template_name = "blog/post_form.html"
+    fields = ['title, content, published_date, author']
+    success_url = reverse_lazy('post-list')
+
+
+class PostDeleteView(DeleteView):
+    model = Post
+    template_name = "blog/post_confirm_delete.html"
+    success_url = reverse_lazy('post-list')
 
 
 # Create your views here.
