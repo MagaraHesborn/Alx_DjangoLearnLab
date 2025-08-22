@@ -74,6 +74,23 @@ class PostDetailView(DetailView):
     template_name = "blog/post_detail.html"
     context_object_name = "post"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = CommentForm()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = self.object
+            comment.author = request.user
+            comment.save()
+            return redirect('post_detail', pk=self.object.pk)
+        context = self.get_context_data(form=form)
+        return self.render_to_response(context)
+
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
