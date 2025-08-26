@@ -27,7 +27,7 @@ class RegisterSerializer(serializers.ModelSerializer):
             profile_picture=validated_data.get("profile_picture", None),
         )
         # Create a token for the new user
-        token, created = Token.objects.get_or_create(user=user)
+        token, created = Token.objects.create(user=user)
         user.token = token.key
         return user
 
@@ -40,6 +40,6 @@ class LoginSerializer(serializers.Serializer):
     def validate(self, data):
         user = authenticate(**data)
         if user and user.is_active:
-            token, created = Token.objects.get_or_create(user=user)
+            token, created = Token.objects.create(user=user)
             return {"user": user, "token": token.key}
         raise serializers.ValidationError("Invalid credentials")
